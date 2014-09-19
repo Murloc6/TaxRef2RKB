@@ -110,7 +110,7 @@ public class TaxRefExtractor
                     {
                         System.out.println("NEW RANK : "+rang);
                         rankUri = "http://inpn.mnhn.fr/espece/cd_nom/"+rang;
-                        currentQueryPart += "<"+rankUri+"> rdf:type owl:Class; rdfs:subClassOf  <http://ontology.irstea.fr/AgronomicTaxon#Taxon>.  ";
+                        currentQueryPart += "<"+rankUri+"> rdf:type owl:Class; rdfs:subClassOf  <http://ontology.irstea.fr/AgronomicTaxon#Taxon>; rdfs:label \""+rang+"\".  ";
                         this.aligns.put(rang, rankUri);
                     }
                     currentQueryPart += "<"+uriRef+"> rdf:type <"+rankUri+">;";
