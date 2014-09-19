@@ -1,0 +1,547 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY terms "http://purl.org/dc/terms/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY skos "http://www.w3.org/2004/02/skos/core#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY AgronomicTaxon "http://ontology.irstea.fr/AgronomicTaxon#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.w3.org/2002/07/owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:AgronomicTaxon="http://ontology.irstea.fr/AgronomicTaxon#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+    <Ontology rdf:about="http://ontology.irstea.fr/AgronomicTaxon">
+        <terms:title xml:lang="en">Agronomic Taxon module</terms:title>
+        <terms:creator xml:lang="en">Catherine ROUSSEY from Irstea</terms:creator>
+        <rdfs:comment xml:lang="en">created by irstea. This ontology is a module that is based on skos vocabulary, ODP from neon project : linnean taxonomy ODP and classification ODP. 
+It reuse also some rdf label of biol dataset.</rdfs:comment>
+        <rdfs:comment xml:lang="en">last update september 2014 </rdfs:comment>
+        <imports rdf:resource="http://www.w3.org/2004/02/skos/core"/>
+    </Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#example -->
+
+    <AnnotationProperty rdf:about="&owl;example"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#classify -->
+
+    <ObjectProperty rdf:about="&AgronomicTaxon;classify">
+        <rdfs:label xml:lang="en">classifies</rdfs:label>
+        <rdfs:label xml:lang="fr">classe</rdfs:label>
+        <rdfs:label xml:lang="fr">classifie</rdfs:label>
+        <rdfs:label xml:lang="it">classifica</rdfs:label>
+        <rdfs:comment>A relation between a Concept and an Entity, e.g. the Role student classifies a Person John</rdfs:comment>
+        <rdfs:seeAlso>Ontology Design Pattern classification:classify</rdfs:seeAlso>
+        <rdfs:isDefinedBy>&quot;http://www.ontologydesignpatterns.org/cp/owl/classification.owl#classifies&quot;</rdfs:isDefinedBy>
+        <rdfs:range rdf:resource="&owl;Thing"/>
+        <rdfs:domain rdf:resource="&skos;Concept"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#hasHigherRank -->
+
+    <ObjectProperty rdf:about="&AgronomicTaxon;hasHigherRank">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label xml:lang="en">has higher rank</rdfs:label>
+        <rdfs:label xml:lang="fr">a pour rang supérieur</rdfs:label>
+        <rdfs:isDefinedBy>&quot;http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#hasHigherRank&quot;</rdfs:isDefinedBy>
+        <rdfs:seeAlso xml:lang="en">Ontology Design Pattern LinneanTaxonomy:hashigherRank</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">This property relates two taxa, where the first is more specific than the second.</rdfs:comment>
+        <rdfs:domain rdf:resource="&AgronomicTaxon;Taxon"/>
+        <rdfs:range rdf:resource="&AgronomicTaxon;Taxon"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#hasLowerRank -->
+
+    <ObjectProperty rdf:about="&AgronomicTaxon;hasLowerRank">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label xml:lang="en">has lower rank</rdfs:label>
+        <rdfs:label xml:lang="fr">a pour rang inférieur</rdfs:label>
+        <rdfs:isDefinedBy>&quot;http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#hasLowerRank&quot;</rdfs:isDefinedBy>
+        <rdfs:seeAlso xml:lang="en">Ontology Design Pattern LinneanTaxonomy:hasLowerRank</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">This property relates two taxa, where the first is less specific than the second.</rdfs:comment>
+        <rdfs:domain rdf:resource="&AgronomicTaxon;Taxon"/>
+        <rdfs:range rdf:resource="&AgronomicTaxon;Taxon"/>
+        <inverseOf rdf:resource="&AgronomicTaxon;hasHigherRank"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#isClassifiedBy -->
+
+    <ObjectProperty rdf:about="&AgronomicTaxon;isClassifiedBy">
+        <rdfs:label xml:lang="en">is classified by</rdfs:label>
+        <rdfs:label xml:lang="fr">est classé par</rdfs:label>
+        <rdfs:label xml:lang="it">è classificato da</rdfs:label>
+        <rdfs:isDefinedBy>&quot;http://www.ontologydesignpatterns.org/cp/owl/classification.owl#isClassifiedBy&quot;</rdfs:isDefinedBy>
+        <rdfs:comment>A relation between a Concept and an Entity, e.g. John is considered a typical rude man; your last concert constitutes the achievement of a lifetime; 20-year-old means she is mature enough.</rdfs:comment>
+        <rdfs:seeAlso xml:lang="en">Ontology Design Pattern classification: isClassifiedBy
+</rdfs:seeAlso>
+        <inverseOf rdf:resource="&AgronomicTaxon;classify"/>
+        <rdfs:domain rdf:resource="&owl;Thing"/>
+        <rdfs:range rdf:resource="&skos;Concept"/>
+        <propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&AgronomicTaxon;isClassifiedBy"/>
+            <rdf:Description rdf:about="&AgronomicTaxon;hasHigherRank"/>
+        </propertyChainAxiom>
+    </ObjectProperty>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#isClassifiedByGenus -->
+
+    <ObjectProperty rdf:about="&AgronomicTaxon;isClassifiedByGenus">
+        <rdfs:label xml:lang="en">is classified by genus</rdfs:label>
+        <rdfs:label xml:lang="fr">est classé par genre</rdfs:label>
+        <rdfs:range rdf:resource="&AgronomicTaxon;GenusRank"/>
+        <rdfs:subPropertyOf rdf:resource="&AgronomicTaxon;isClassifiedBy"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#isClassifiedByKingdom -->
+
+    <ObjectProperty rdf:about="&AgronomicTaxon;isClassifiedByKingdom">
+        <rdfs:label xml:lang="en">is classified by kingdom</rdfs:label>
+        <rdfs:label xml:lang="fr">est classé par règne</rdfs:label>
+        <rdfs:range rdf:resource="&AgronomicTaxon;KingdomRank"/>
+        <rdfs:subPropertyOf rdf:resource="&AgronomicTaxon;isClassifiedBy"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#isClassifiedBySpecy -->
+
+    <ObjectProperty rdf:about="&AgronomicTaxon;isClassifiedBySpecy">
+        <rdfs:label xml:lang="en">is classified by species</rdfs:label>
+        <rdfs:label xml:lang="fr">est classé par espèce</rdfs:label>
+        <rdfs:range rdf:resource="&AgronomicTaxon;SpecyRank"/>
+        <rdfs:subPropertyOf rdf:resource="&AgronomicTaxon;isClassifiedBy"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#isClassifiedByVariety -->
+
+    <ObjectProperty rdf:about="&AgronomicTaxon;isClassifiedByVariety">
+        <rdfs:label xml:lang="en">is classified by variety</rdfs:label>
+        <rdfs:label xml:lang="fr">est classé par variété</rdfs:label>
+        <rdfs:range rdf:resource="&AgronomicTaxon;VarietyRank"/>
+        <rdfs:subPropertyOf rdf:resource="&AgronomicTaxon;isClassifiedBy"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#memberScheme -->
+
+    <ObjectProperty rdf:about="&AgronomicTaxon;memberScheme">
+        <rdfs:label xml:lang="en">is member of scheme</rdfs:label>
+        <rdfs:label xml:lang="fr">a pour membre</rdfs:label>
+        <rdfs:label xml:lang="fr">a pour élément</rdfs:label>
+        <rdfs:comment xml:lang="en">Relates a skos:ConceptScheme to its members, some skos:concepts. 
+A concept scheme has several members.
+</rdfs:comment>
+        <rdfs:domain rdf:resource="&skos;ConceptScheme"/>
+        <inverseOf rdf:resource="&skos;inScheme"/>
+    </ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#inScheme -->
+
+    <rdf:Description rdf:about="&skos;inScheme"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#hasScientificName -->
+
+    <DatatypeProperty rdf:about="&AgronomicTaxon;hasScientificName">
+        <rdfs:label xml:lang="en">has scientific name</rdfs:label>
+        <rdfs:label xml:lang="fr">a pour nom scientifique</rdfs:label>
+    </DatatypeProperty>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#hasVernacularName -->
+
+    <DatatypeProperty rdf:about="&AgronomicTaxon;hasVernacularName">
+        <rdfs:label xml:lang="en">has common name</rdfs:label>
+        <rdfs:label xml:lang="en">has vernacular name</rdfs:label>
+        <rdfs:label xml:lang="fr">a pour nom commun</rdfs:label>
+        <rdfs:label xml:lang="fr">a pour nom vernaculaire</rdfs:label>
+        <rdfs:comment xml:lang="fr">Un nom vernaculaire est un nom usuel, en langue locale, donné à une ou plusieurs espèces animales ou végétales dans son pays ou sa région d&apos;origine. Il peut donc désigner des taxons très différents selon le contexte. Les noms vernaculaires sont souvent repris pour former la base des noms normalisés ou des noms vulgaires créés pour permettre la vulgarisation des noms scientifiques. Malgré leurs imprécisions, ils ont souvent la faveur dans le langage courant et font partie de la culture populaire.
+source wikipedia</rdfs:comment>
+    </DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#ClassRank -->
+
+    <Class rdf:about="&AgronomicTaxon;ClassRank">
+        <rdfs:label xml:lang="en">Class</rdfs:label>
+        <rdfs:label xml:lang="fr">Classe</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&AgronomicTaxon;Taxon"/>
+        <rdfs:isDefinedBy>&quot;http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Class&quot;</rdfs:isDefinedBy>
+        <rdfs:seeAlso>Ontology Design Pattern linneanTaxonomy:Class</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">Class is the third highest traditional taxon. E.g., in the case of humans the class is &quot;Mammalia&quot;;.</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#FamilyRank -->
+
+    <Class rdf:about="&AgronomicTaxon;FamilyRank">
+        <rdfs:label xml:lang="en">Family</rdfs:label>
+        <rdfs:label xml:lang="fr">Famille</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&AgronomicTaxon;Taxon"/>
+        <rdfs:isDefinedBy>&quot;http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Family&quot;</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en">Family is the fifth highest traditional taxon. E.g., in the case of humans the family is &quot;Hominidae&quot;.</rdfs:comment>
+        <rdfs:seeAlso xml:lang="en">Ontology Design Pattern linneanTaxonomy:Family</rdfs:seeAlso>
+    </Class>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#GenusRank -->
+
+    <Class rdf:about="&AgronomicTaxon;GenusRank">
+        <rdfs:label xml:lang="en">Genus</rdfs:label>
+        <rdfs:label xml:lang="fr">Genre</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&AgronomicTaxon;Taxon"/>
+        <rdfs:seeAlso>Ontology Design Pattern linneanTaxonomy:Genus</rdfs:seeAlso>
+        <rdfs:isDefinedBy>&quot;http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Genus&quot;</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en">Genus is the sixth highest traditional taxon. E.g., in the case of humans the genus is &quot;Homo&quot;.</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#KingdomRank -->
+
+    <Class rdf:about="&AgronomicTaxon;KingdomRank">
+        <rdfs:label xml:lang="en">Kingdom</rdfs:label>
+        <rdfs:label xml:lang="fr">Règne</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&AgronomicTaxon;Taxon"/>
+        <rdfs:comment xml:lang="en">Kingdom is the highest traditional taxon. E.g., in the case of humans the kingdom is &quot;Animalia&quot;.</rdfs:comment>
+        <rdfs:seeAlso xml:lang="en">Ontology Design Pattern linneanTaxonomy:Kingdom</rdfs:seeAlso>
+        <rdfs:isDefinedBy>http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Kingdom</rdfs:isDefinedBy>
+    </Class>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#LivingOrganism -->
+
+    <Class rdf:about="&AgronomicTaxon;LivingOrganism">
+        <rdfs:label xml:lang="en">Living Organism</rdfs:label>
+        <rdfs:label xml:lang="fr">Organisme vivant</rdfs:label>
+        <rdfs:comment xml:lang="en">In biology, an organism is any contiguous living system (such as animal, fungus, micro-organism, or plant). In at least some form, all types of organisms are capable of responding to stimuli, reproduction, growth and development, and maintenance of homeostasis as a stable whole.
+source wikipedia</rdfs:comment>
+        <rdfs:comment xml:lang="fr">Un organisme  désigne, en biologie et en écologie, un système complexe évolutif formé d&apos;organes qui interagissent de façon à fonctionner comme un ensemble stable.
+source wikipedia</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#OrderRank -->
+
+    <Class rdf:about="&AgronomicTaxon;OrderRank">
+        <rdfs:label xml:lang="en">Order</rdfs:label>
+        <rdfs:label xml:lang="fr">Ordre</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&AgronomicTaxon;Taxon"/>
+        <rdfs:seeAlso xml:lang="en"> Ontology Design Pattern linneanTaxonomy:Order</rdfs:seeAlso>
+        <rdfs:isDefinedBy>&quot;http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Order&quot;</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en">Order is the fourth highest traditional taxon. E.g., in the case of humans the phylum is &quot;Primates&quot;.</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#PhylumRank -->
+
+    <Class rdf:about="&AgronomicTaxon;PhylumRank">
+        <rdfs:label xml:lang="en">Phylum</rdfs:label>
+        <rdfs:label xml:lang="fr">Division</rdfs:label>
+        <rdfs:label xml:lang="fr">Embranchement</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&AgronomicTaxon;Taxon"/>
+        <rdfs:isDefinedBy>&quot;http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Phylum&quot;</rdfs:isDefinedBy>
+        <rdfs:seeAlso xml:lang="en">Ontology Design Pattern linneanTaxonomy:Phylum</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">Phylum is the second highest traditional taxon. E.g., in the case of humans the phylum is &quot;Chordata&quot;.</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#SpecyRank -->
+
+    <Class rdf:about="&AgronomicTaxon;SpecyRank">
+        <rdfs:label xml:lang="en">Species</rdfs:label>
+        <rdfs:label xml:lang="fr">Espèce</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&AgronomicTaxon;Taxon"/>
+        <rdfs:isDefinedBy>&quot;http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Species&quot;</rdfs:isDefinedBy>
+        <rdfs:seeAlso xml:lang="en">Ontology Design Pattern linneanTaxonomy:Species</rdfs:seeAlso>
+        <rdfs:comment xml:lang="en">Species is the lowest traditional taxon. E.g., in the case of humans the species is &quot;Homo sapiens&quot;.</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#Taxon -->
+
+    <Class rdf:about="&AgronomicTaxon;Taxon">
+        <rdfs:label xml:lang="en">Taxon</rdfs:label>
+        <rdfs:label xml:lang="fr">Rang</rdfs:label>
+        <rdfs:label xml:lang="fr">Rang taxinomique</rdfs:label>
+        <rdfs:label xml:lang="fr">Taxon</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&skos;Concept"/>
+        <rdfs:isDefinedBy>&quot;http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Taxon&quot;</rdfs:isDefinedBy>
+        <rdfs:comment xml:lang="en">A taxon is a concept denoting a type of organism or of a group of organisms.</rdfs:comment>
+        <rdfs:seeAlso xml:lang="en">Ontology Design Pattern linneanTaxonomy:Taxon</rdfs:seeAlso>
+    </Class>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#Taxonomy -->
+
+    <Class rdf:about="&AgronomicTaxon;Taxonomy">
+        <rdfs:label xml:lang="en">Taxonomy</rdfs:label>
+        <rdfs:label xml:lang="fr">Taxinomie</rdfs:label>
+        <rdfs:label xml:lang="fr">Taxonomie</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&skos;ConceptScheme"/>
+        <rdfs:comment xml:lang="en">Taxonomy is the academic discipline of defining groups of biological organisms on the basis of shared characteristics and giving names to those groups. Each group is given a rank and groups of a given rank can be aggregated to form a super group of higher rank and thus create a hierarchical classification. The groups created through this process are referred to as taxa (singular taxon). An example of a modern classification is the one published in 2009 by the Angiosperm Phylogeny Group for all living flowering plant families (the APG III system).
+from wikipedia</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- http://ontology.irstea.fr/AgronomicTaxon#VarietyRank -->
+
+    <Class rdf:about="&AgronomicTaxon;VarietyRank">
+        <rdfs:label xml:lang="en">Variety</rdfs:label>
+        <rdfs:label xml:lang="fr">Variété</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&AgronomicTaxon;Taxon"/>
+        <rdfs:comment xml:lang="fr">Une variété est un rang taxinomique de niveau inférieur au rang d&apos;espèce. Ce rang est utilisé en botanique et en mycologie.
+source wikipedia</rdfs:comment>
+    </Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Rules
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="urn:swrl#o">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:swrl#s">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:swrl#label">
+        <rdf:type rdf:resource="&swrl;Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&swrl;Imp"/>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="&AgronomicTaxon;hasVernacularName"/>
+                        <swrl:argument2 rdf:resource="urn:swrl#label"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#o"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="&AgronomicTaxon;hasVernacularName"/>
+                                                <swrl:argument2 rdf:resource="urn:swrl#label"/>
+                                                <swrl:argument1 rdf:resource="urn:swrl#s"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                    </rdf:Description>
+                                </rdf:rest>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="&AgronomicTaxon;isClassifiedBy"/>
+                                        <swrl:argument1 rdf:resource="urn:swrl#o"/>
+                                        <swrl:argument2 rdf:resource="urn:swrl#s"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                            </rdf:Description>
+                        </rdf:rest>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="&AgronomicTaxon;SpecyRank"/>
+                                <swrl:argument1 rdf:resource="urn:swrl#s"/>
+                            </rdf:Description>
+                        </rdf:first>
+                    </rdf:Description>
+                </rdf:rest>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="&AgronomicTaxon;LivingOrganism"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#o"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:body>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="&swrl;Imp"/>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                        <swrl:propertyPredicate rdf:resource="&AgronomicTaxon;hasScientificName"/>
+                        <swrl:argument2 rdf:resource="urn:swrl#label"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#o"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:head>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="&swrl;AtomList"/>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;AtomList"/>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;AtomList"/>
+                                        <rdf:rest rdf:resource="&rdf;nil"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="&swrl;DatavaluedPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="&AgronomicTaxon;hasScientificName"/>
+                                                <swrl:argument2 rdf:resource="urn:swrl#label"/>
+                                                <swrl:argument1 rdf:resource="urn:swrl#s"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                    </rdf:Description>
+                                </rdf:rest>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="&swrl;IndividualPropertyAtom"/>
+                                        <swrl:propertyPredicate rdf:resource="&AgronomicTaxon;isClassifiedBy"/>
+                                        <swrl:argument1 rdf:resource="urn:swrl#o"/>
+                                        <swrl:argument2 rdf:resource="urn:swrl#s"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                            </rdf:Description>
+                        </rdf:rest>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                                <swrl:classPredicate rdf:resource="&AgronomicTaxon;SpecyRank"/>
+                                <swrl:argument1 rdf:resource="urn:swrl#s"/>
+                            </rdf:Description>
+                        </rdf:first>
+                    </rdf:Description>
+                </rdf:rest>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="&swrl;ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="&AgronomicTaxon;LivingOrganism"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#o"/>
+                    </rdf:Description>
+                </rdf:first>
+            </rdf:Description>
+        </swrl:body>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
