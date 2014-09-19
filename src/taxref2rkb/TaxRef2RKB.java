@@ -26,15 +26,15 @@ public class TaxRef2RKB {
         spOut.clearSp();
         System.out.println("Sparql Endpoint cleared!");
         
-        TaxRefExtractor tre = new TaxRefExtractor(spOut, "in/agronomicTaxon_testTTL.owl");
+        TaxRefExtractor tre = new TaxRefExtractor(spOut, "in/agronomicTaxon.owl");
         tre.loadRef("in/TAXREFv70_utf8.txt");
         
-        /*System.out.println("Filtering sub part ...");
+        System.out.println("Filtering sub part ...");
         tre.filterSubPart("http://inpn.mnhn.fr/espece/cd_nom/187079");
-        System.out.println("Sub part filtered");*/
+        System.out.println("Sub part filtered");
         
         
-        String dateFileName = new SimpleDateFormat("dd-MM_HH:mm_").format(new Date());
+        String dateFileName = new SimpleDateFormat("dd-MM_HH-mm_").format(new Date());
         System.out.println("Exporting RKB to file : out/"+dateFileName+"_TaxRef_OWL.owl");
         tre.exportRefToFile(dateFileName+"_TaxRef_OWL"); 
         System.out.println("File generated");

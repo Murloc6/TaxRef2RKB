@@ -88,6 +88,7 @@ public class SparqlProxy
                                             "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"+
                                             "PREFIX owl:    <http://www.w3.org/2002/07/owl#>"+
                                             "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"+
+                                            "PREFIX terms: <http://purl.org/dc/terms/>"+
                                             //"PREFIX foaf: <http://xmlns.com/foaf/0.1/>"+
                                             //"PREFIX dc: <http://purl.org/dc/elements/1.1/>"+
                                             //"PREFIX pf: <http://jena.hpl.hp.com/ARQ/property#>"+
@@ -98,9 +99,13 @@ public class SparqlProxy
       public static  StringBuilder  makeQuery(StringBuilder q)
         {
              StringBuilder query = new StringBuilder("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"+
-                                            "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"+
-                                            "PREFIX owl:    <http://www.w3.org/2002/07/owl#>"+
-                                            "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"+
+                                            " PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"+
+                                            " PREFIX owl:    <http://www.w3.org/2002/07/owl#>"+
+                                            " PREFIX skos: <http://www.w3.org/2004/02/skos/core#>"+
+                                            " PREFIX terms: <http://purl.org/dc/terms/>"+
+                                            " PREFIX AgronomicTaxon: <http://ontology.irstea.fr/AgronomicTaxon#> "+
+                                             " PREFIX swrl: <http://www.w3.org/2003/11/swrl#>"+
+                                            " PREFIX swrlb: <http://www.w3.org/2003/11/swrlb#>"+
                                             //"PREFIX foaf: <http://xmlns.com/foaf/0.1/>"+
                                             //"PREFIX dc: <http://purl.org/dc/elements/1.1/>"+
                                             //"PREFIX pf: <http://jena.hpl.hp.com/ARQ/property#>"+
@@ -256,6 +261,8 @@ public class SparqlProxy
             {
                 System.err.println("ERROR UPDATE : "+e);
                 SparqlProxy.saveQueryOnFile("Query.sparql", query.toString());
+                System.err.println("Query.sparql : "+ query.toString());
+                System.exit(0);
                 ret = false;
             }
              finally 

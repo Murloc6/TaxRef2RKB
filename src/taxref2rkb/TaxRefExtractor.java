@@ -53,10 +53,10 @@ public class TaxRefExtractor
     {
         String ret = this.aligns.get(rank);
         
-        if(ret == null)
+        /*if(ret == null)
         {
             ret = "http://ontology.irstea.fr/AgronomicTaxon#Taxon";
-        }
+        }*/
         
         return ret;
     }
@@ -105,7 +105,15 @@ public class TaxRefExtractor
                  
                 if(id.compareTo(idRef) == 0)
                 {
-                    currentQueryPart += "<"+uriRef+"> rdf:type <"+this.getAlign(rang)+">;";
+                    String rankUri = this.getAlign(rang);
+                    if(rankUri == null)
+                    {
+                        System.out.println("NEW RANK : "+rang);
+                        rankUri = "http://inpn.mnhn.fr/espece/cd_nom/"+rang;
+                        currentQueryPart += "<"+rankUri+"> rdf:type owl:Class; rdfs:subClassOf  <http://ontology.irstea.fr/AgronomicTaxon#Taxon>.  ";
+                        this.aligns.put(rang, rankUri);
+                    }
+                    currentQueryPart += "<"+uriRef+"> rdf:type <"+rankUri+">;";
                     if(!idSup.isEmpty())
                         currentQueryPart += "<http://ontology.irstea.fr/AgronomicTaxon#hasHigherRank> <http://inpn.mnhn.fr/espece/cd_nom/"+idSup+">; ";
                     i++;
@@ -117,7 +125,7 @@ public class TaxRefExtractor
 
                 if(!scientificLabel.isEmpty())
                 {
-                  currentQueryPart += "<http://ontology.irstea.fr/AgronomicTaxon#hasScientificName> \""+scientificLabel+"\"; ";
+                  currentQueryPart += " <http://ontology.irstea.fr/AgronomicTaxon#hasScientificName> \""+scientificLabel+"\"; ";
                   nbLabels ++;
                 }
                 if(!vernLabelFR.isEmpty())
@@ -196,6 +204,11 @@ public class TaxRefExtractor
             System.err.println("Can't read adom file!");
             System.exit(0);
         }
+        catch(Exception e)
+        {
+            System.err.println("ERROR : "+e);
+            System.exit(0);
+        }
         
         
         ret += "}";
@@ -205,7 +218,16 @@ public class TaxRefExtractor
      
      public void filterSubPart(String uriTop)
      {
-         this.spOut.storeData(new StringBuilder("DELETE {?uri ?a?b. ?a?b ?uri.} WHERE{ FILTER NOT EXISTS { ?uri <http://ontology.irstea.fr/AgronomicTaxon#hasHigherRank> <"+uriTop+">. } }"));
+         this.spOut.storeData(new StringBuilder(" DELETE {?uri ?a ?b. ?a ?b ?uri.} WHERE{"
+                 + "FILTER ( ?uri != <"+uriTop+">)"
+                 + " FILTER NOT EXISTS { ?uri <http://ontology.irstea.fr/AgronomicTaxon#hasHigherRank>+ <"+uriTop+">. }"
+                 + "FILTER NOT EXISTS { <"+uriTop+"> <http://ontology.irstea.fr/AgronomicTaxon#hasHigherRank>+ ?uri}"
+                 + " }"));
+         
+         //DELETE classes not used
+         this.spOut.storeData(new StringBuilder(" DELETE {?uri ?a ?b. ?a ?b ?uri.} WHERE{"
+                 + " FILTER NOT EXISTS { ?uri rdf:type <"+uriTop+">. }"
+                 + " }"));
      }
     
 }
