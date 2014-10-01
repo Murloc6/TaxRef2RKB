@@ -32,6 +32,7 @@ public class TaxRefExtractor
     
     SparqlProxy spOut;
     HashMap<String, String> aligns;
+    HashMap<String, String> rankLabels;
     String adomFileName;
     
     public TaxRefExtractor(SparqlProxy spOut, String adomFileName)
@@ -47,6 +48,60 @@ public class TaxRefExtractor
         this.aligns.put("GN", "http://ontology.irstea.fr/AgronomicTaxon#GenusRank");
         this.aligns.put("ES", "http://ontology.irstea.fr/AgronomicTaxon#SpecyRank");
         this.aligns.put("VAR", "http://ontology.irstea.fr/AgronomicTaxon#VarietyRank");
+        
+        
+        this.rankLabels = new HashMap<>();
+        this.rankLabels.put("Dumm", "Domaine");
+        this.rankLabels.put("OR", "Ordre");
+        this.rankLabels.put("AGES", "Agrégat");
+        this.rankLabels.put("SPRG", "Super‐Règne");
+        this.rankLabels.put("SBOR", "Sous‐Ordre");
+        this.rankLabels.put("ES", "Espèce");
+        this.rankLabels.put("KD", "Règne");
+        this.rankLabels.put("IFOR", "Infra‐Ordre");
+        this.rankLabels.put("SMES", "Semi‐Espèce");
+        this.rankLabels.put("SSRG", "Sous‐Règne");
+        this.rankLabels.put("SPFM", "Super‐Famille");
+        this.rankLabels.put("MES", "Micro‐Espèce");
+        this.rankLabels.put("IFRG", "Infra‐Règne");
+        this.rankLabels.put("FM", "Famille");
+        this.rankLabels.put("SSES", "Sous‐Espèce");
+        this.rankLabels.put("PH", "Phylum/Embranchement");
+        this.rankLabels.put("SBFM", "Sous‐Famille");
+        this.rankLabels.put("NAT", "Natio");
+        this.rankLabels.put("SBPH", "Sous‐Phylum");
+        this.rankLabels.put("TR", "Tribu");
+        this.rankLabels.put("VAR", "Variété");
+        this.rankLabels.put("IFPH", "Infra‐Phylum");
+        this.rankLabels.put("SSTR", "Sous‐Tribu");
+        this.rankLabels.put("SVAR", "Sous‐Variété");
+        this.rankLabels.put("DV", "Division");
+        this.rankLabels.put("GN", "Genre");
+        this.rankLabels.put("FO", "Forme");
+        this.rankLabels.put("SBDV", "Sous‐division");
+        this.rankLabels.put("SSGN", "Sous‐Genre");
+        this.rankLabels.put("SSFO", "Sous‐Forme");
+        this.rankLabels.put("SPCL", "Super‐Classe");
+        this.rankLabels.put("SC", "Section");
+        this.rankLabels.put("FOES", "Forma species");
+        this.rankLabels.put("CLAD", "Cladus");
+        this.rankLabels.put("SBSC", "Sous‐Section");
+        this.rankLabels.put("LIN", "Linea");
+        this.rankLabels.put("CL", "Classe");
+        this.rankLabels.put("SER", "Série");
+        this.rankLabels.put("CLO", "Clône");
+        this.rankLabels.put("SBCL", "Sous‐Classe");
+        this.rankLabels.put("SSER", "Sous‐Série");
+        this.rankLabels.put("RACE", "Race");
+        this.rankLabels.put("IFCL", "Infra‐classe");
+        this.rankLabels.put("CAR", "Cultivar");
+        this.rankLabels.put("LEG", "Legio");
+        this.rankLabels.put("MO", "Morpha");
+        this.rankLabels.put("SPOR", "Super‐Ordre");
+        this.rankLabels.put("AB", "Abberatio");
+        this.rankLabels.put("COH", "Cohorte");
+        this.rankLabels.put("HYB", "Hybride");
+        
     }
     
     public String getAlign(String rank)
@@ -110,7 +165,12 @@ public class TaxRefExtractor
                     {
                         System.out.println("NEW RANK : "+rang);
                         rankUri = "http://inpn.mnhn.fr/espece/cd_nom/"+rang;
-                        currentQueryPart += "<"+rankUri+"> rdf:type owl:Class; rdfs:subClassOf  <http://ontology.irstea.fr/AgronomicTaxon#Taxon>; rdfs:label \""+rang+"\".  ";
+                        String label = rang;
+                        if(this.rankLabels.containsKey(rang))
+                        {
+                            label = this.rankLabels.get(rang);
+                        }
+                        currentQueryPart += "<"+rankUri+"> rdf:type owl:Class; rdfs:subClassOf  <http://ontology.irstea.fr/AgronomicTaxon#Taxon>; rdfs:label \""+label+"\".  ";
                         this.aligns.put(rang, rankUri);
                     }
                     currentQueryPart += "<"+uriRef+"> rdf:type <"+rankUri+">;";
