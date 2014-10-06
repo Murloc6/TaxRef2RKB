@@ -186,16 +186,19 @@ public class TaxRefExtractor
                 if(!scientificLabel.isEmpty())
                 {
                   currentQueryPart += " <http://ontology.irstea.fr/AgronomicTaxon#hasScientificName> \""+scientificLabel+"\"; ";
+                  currentQueryPart += " rdfs:label \""+scientificLabel+"\"; ";
                   nbLabels ++;
                 }
                 if(!vernLabelFR.isEmpty())
                 {
                     currentQueryPart += "<http://ontology.irstea.fr/AgronomicTaxon#hasVernacularName> \""+vernLabelFR+"\"@fr ;";
+                    currentQueryPart += "rdfs:label \""+vernLabelFR+"\"@fr ;";
                     nbLabels++;
                 }
                 if(!vernLabelEN.isEmpty())
                 {
                     currentQueryPart +="<http://ontology.irstea.fr/AgronomicTaxon#hasVernacularName> \""+vernLabelEN+"\"@en ;";
+                    currentQueryPart +="rdfs:label \""+vernLabelEN+"\"@en ;";
                     nbLabels++;
                 }
                 currentQueryPart += ". ";
