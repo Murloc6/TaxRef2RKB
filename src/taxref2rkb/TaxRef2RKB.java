@@ -26,7 +26,7 @@ public class TaxRef2RKB {
         spOut.clearSp();
         System.out.println("Sparql Endpoint cleared!");
         
-        TaxRefExtractor tre = new TaxRefExtractor(spOut, "in/agronomicTaxon.owl");
+        TaxRefExtractor tre = new TaxRefExtractor(spOut, "in/AgronomicTaxon.ttl");
         tre.loadRef("in/TAXREFv70_utf8.txt");
         
         System.out.println("Filtering sub part ...");

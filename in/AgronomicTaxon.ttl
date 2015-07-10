@@ -1,0 +1,506 @@
+
+<http://ontology.irstea.fr/AgronomicTaxon> rdf:type owl:Ontology ;
+                                           
+                                           rdfs:comment ""^^xsd:string ;
+                                           
+                                           <http://protege.stanford.edu/webprotege/revision> 1 ;
+                                           
+                                           <http://purl.org/dc/elements/1.1/date> "Jul 10, 2015 3:14:58 AM"^^xsd:dateTime ;
+                                           
+                                           rdfs:comment "This ontology was generated from an ontology revision in WebProtege http://webprotege.stanford.edu"^^xsd:string ;
+                                           
+                                           <http://purl.org/dc/elements/1.1/creator> "system"^^xsd:string ;
+                                           
+                                           <http://purl.org/dc/terms/title> "Agronomic Taxon module"@en ;
+                                           
+                                           <http://purl.org/dc/terms/creator> "Catherine ROUSSEY from Irstea"@en ;
+                                           
+                                           rdfs:comment """created by irstea. This ontology is a module that is based on skos vocabulary, ODP from neon project : linnean taxonomy ODP and classification ODP. 
+It reuse also some rdf label of biol dataset."""@en ,
+                                                        "last update september 2014 "@en ;
+                                           
+                                           owl:imports <http://www.w3.org/2004/02/skos/core> .
+
+
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#classify
+
+:classify rdf:type owl:ObjectProperty ;
+          
+          rdfs:label "classifies"@en ,
+                     "classe"@fr ,
+                     "classifie"@fr ,
+                     "classifica"@it ;
+          
+          rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/classification.owl#classifies" ;
+          
+          rdfs:comment "A relation between a Concept and an Entity, e.g. the Role student classifies a Person John" ;
+          
+          rdfs:seeAlso "Ontology Design Pattern classification:classify" ;
+          
+          rdfs:range owl:Thing ;
+          
+          rdfs:domain <http://www.w3.org/2004/02/skos/core#Concept> .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#hasHigherRank
+
+:hasHigherRank rdf:type owl:ObjectProperty ,
+                        owl:TransitiveProperty ;
+               
+               rdfs:label "has higher rank"@en ,
+                          "a pour rang supérieur"@fr ;
+               
+               rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#hasHigherRank" ;
+               
+               rdfs:seeAlso "Ontology Design Pattern LinneanTaxonomy:hashigherRank"@en ;
+               
+               rdfs:comment "This property relates two taxa, where the first is more specific than the second."@en ;
+               
+               rdfs:range :Taxon ;
+               
+               rdfs:domain :Taxon .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#hasLowerRank
+
+:hasLowerRank rdf:type owl:ObjectProperty ,
+                       owl:TransitiveProperty ;
+              
+              rdfs:label "has lower rank"@en ,
+                         "a pour rang inférieur"@fr ;
+              
+              rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#hasLowerRank" ;
+              
+              rdfs:seeAlso "Ontology Design Pattern LinneanTaxonomy:hasLowerRank"@en ;
+              
+              rdfs:comment "This property relates two taxa, where the first is less specific than the second."@en ;
+              
+              rdfs:domain :Taxon ;
+              
+              rdfs:range :Taxon ;
+              
+              owl:inverseOf :hasHigherRank .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#isClassifiedBy
+
+:isClassifiedBy rdf:type owl:ObjectProperty ;
+                
+                rdfs:label "is classified by"@en ,
+                           "est classé par"@fr ,
+                           "è classificato da"@it ;
+                
+                rdfs:comment "A relation between a Concept and an Entity, e.g. John is considered a typical rude man; your last concert constitutes the achievement of a lifetime; 20-year-old means she is mature enough." ;
+                
+                rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/classification.owl#isClassifiedBy" ;
+                
+                rdfs:seeAlso """Ontology Design Pattern classification: isClassifiedBy"""@en ;
+                
+                owl:inverseOf :classify ;
+                
+                rdfs:domain owl:Thing ;
+                
+                rdfs:range <http://www.w3.org/2004/02/skos/core#Concept> ;
+                
+                owl:propertyChainAxiom ( :isClassifiedBy
+                                         :hasHigherRank
+                                       ) .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#isClassifiedByGenus
+
+:isClassifiedByGenus rdf:type owl:ObjectProperty ;
+                     
+                     rdfs:label "is classified by genus"@en ,
+                                "est classé par genre"@fr ;
+                     
+                     rdfs:range :GenusRank ;
+                     
+                     rdfs:subPropertyOf :isClassifiedBy .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#isClassifiedByKingdom
+
+:isClassifiedByKingdom rdf:type owl:ObjectProperty ;
+                       
+                       rdfs:label "is classified by kingdom"@en ,
+                                  "est classé par règne"@fr ;
+                       
+                       rdfs:range :KingdomRank ;
+                       
+                       rdfs:subPropertyOf :isClassifiedBy .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#isClassifiedBySpecy
+
+:isClassifiedBySpecy rdf:type owl:ObjectProperty ;
+                     
+                     rdfs:label "is classified by species"@en ,
+                                "est classé par espèce"@fr ;
+                     
+                     rdfs:range :SpecyRank ;
+                     
+                     rdfs:subPropertyOf :isClassifiedBy .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#isClassifiedByVariety
+
+:isClassifiedByVariety rdf:type owl:ObjectProperty ;
+                       
+                       rdfs:label "is classified by variety"@en ,
+                                  "est classé par variété"@fr ;
+                       
+                       rdfs:range :VarietyRank ;
+                       
+                       rdfs:subPropertyOf :isClassifiedBy .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#memberScheme
+
+:memberScheme rdf:type owl:ObjectProperty ;
+              
+              rdfs:label "is member of scheme"@en ,
+                         "a pour membre"@fr ,
+                         "a pour élément"@fr ;
+              
+              rdfs:comment """Relates a skos:ConceptScheme to its members, some skos:concepts. A concept scheme has several members."""@en ;
+              
+              rdfs:domain <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+              
+              owl:inverseOf <http://www.w3.org/2004/02/skos/core#inScheme> .
+
+
+
+###  http://www.w3.org/2004/02/skos/core#inScheme
+
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#hasScientificName
+
+:hasScientificName rdf:type owl:DatatypeProperty ;
+                   
+                   rdfs:label "has scientific name"@en ,
+                              "a pour nom scientifique"@fr .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#hasVernacularName
+
+:hasVernacularName rdf:type owl:DatatypeProperty ;
+                   
+                   rdfs:label "has common name"@en ,
+                              "has vernacular name"@en ,
+                              "a pour nom commun"@fr ,
+                              "a pour nom vernaculaire"@fr ;
+                   
+                   rdfs:comment """Un nom vernaculaire est un nom usuel, en langue locale, donné à une ou plusieurs espèces animales ou végétales dans son pays ou sa région d'origine. Il peut donc désigner des taxons très différents selon le contexte. Les noms vernaculaires sont souvent repris pour former la base des noms normalisés ou des noms vulgaires créés pour permettre la vulgarisation des noms scientifiques. Malgré leurs imprécisions, ils ont souvent la faveur dans le langage courant et font partie de la culture populaire. source wikipedia"""@fr .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#ClassRank
+
+:ClassRank rdf:type owl:Class ;
+           
+           rdfs:label "Class"@en ,
+                      "Classe"@fr ;
+           
+           rdfs:subClassOf :Taxon ;
+           
+           rdfs:seeAlso "Ontology Design Pattern linneanTaxonomy:Class" ;
+           
+           rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Class" ;
+           
+           rdfs:comment "Class is the third highest traditional taxon. E.g., in the case of humans the class is Mammalia;."@en .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#FamilyRank
+
+:FamilyRank rdf:type owl:Class ;
+            
+            rdfs:label "Family"@en ,
+                       "Famille"@fr ;
+            
+            rdfs:subClassOf :Taxon ;
+            
+            rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Family" ;
+            
+            rdfs:comment "Family is the fifth highest traditional taxon. E.g., in the case of humans the family is Hominidae."@en ;
+            
+            rdfs:seeAlso "Ontology Design Pattern linneanTaxonomy:Family"@en .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#GenusRank
+
+:GenusRank rdf:type owl:Class ;
+           
+           rdfs:label "Genus"@en ,
+                      "Genre"@fr ;
+           
+           rdfs:subClassOf :Taxon ;
+           
+           rdfs:seeAlso "Ontology Design Pattern linneanTaxonomy:Genus" ;
+           
+           rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Genus" ;
+           
+           rdfs:comment "Genus is the sixth highest traditional taxon. E.g., in the case of humans the genus is Homo."@en .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#KingdomRank
+
+:KingdomRank rdf:type owl:Class ;
+             
+             rdfs:label "Kingdom"@en ,
+                        "Règne"@fr ;
+             
+             rdfs:subClassOf :Taxon ;
+             
+             rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Kingdom" ;
+             
+             rdfs:comment "Kingdom is the highest traditional taxon. E.g., in the case of humans the kingdom is Animalia."@en ;
+             
+             rdfs:seeAlso "Ontology Design Pattern linneanTaxonomy:Kingdom"@en .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#LivingOrganism
+
+:LivingOrganism rdf:type owl:Class ;
+                
+                rdfs:label "Living Organism"@en ,
+                           "Organisme vivant"@fr ;
+                
+                rdfs:comment """In biology, an organism is any contiguous living system (such as animal, fungus, micro-organism, or plant). In at least some form, all types of organisms are capable of responding to stimuli, reproduction, growth and development, and maintenance of homeostasis as a stable whole.
+source wikipedia"""@en ,
+                             """Un organisme  désigne, en biologie et en écologie, un système complexe évolutif formé d'organes qui interagissent de façon à fonctionner comme un ensemble stable.
+source wikipedia"""@fr .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#OrderRank
+
+:OrderRank rdf:type owl:Class ;
+           
+           rdfs:label "Order"@en ,
+                      "Ordre"@fr ;
+           
+           rdfs:subClassOf :Taxon ;
+           
+           rdfs:seeAlso " Ontology Design Pattern linneanTaxonomy:Order"@en ;
+           
+           rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Order" ;
+           
+           rdfs:comment "Order is the fourth highest traditional taxon. E.g., in the case of humans the phylum is Primates."@en .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#PhylumRank
+
+:PhylumRank rdf:type owl:Class ;
+            
+            rdfs:label "Phylum"@en ,
+                       "Division"@fr ,
+                       "Embranchement"@fr ;
+            
+            rdfs:subClassOf :Taxon ;
+            
+            rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Phylum" ;
+            
+            rdfs:seeAlso "Ontology Design Pattern linneanTaxonomy:Phylum"@en ;
+            
+            rdfs:comment "Phylum is the second highest traditional taxon. E.g., in the case of humans the phylum is Chordata."@en .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#SpecyRank
+
+:SpecyRank rdf:type owl:Class ;
+           
+           rdfs:label "Species"@en ,
+                      "Espèce"@fr ;
+           
+           rdfs:subClassOf :Taxon ;
+           
+           rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Species" ;
+           
+           rdfs:seeAlso "Ontology Design Pattern linneanTaxonomy:Species"@en ;
+           
+           rdfs:comment "Species is the lowest traditional taxon. E.g., in the case of humans the species is Homo sapiens."@en .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#Taxon
+
+:Taxon rdf:type owl:Class ;
+       
+       rdfs:label "Taxon"@en ,
+                  "Rang"@fr ,
+                  "Rang taxinomique"@fr ,
+                  "Taxon"@fr ;
+       
+       rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#Concept> ;
+       
+       rdfs:isDefinedBy "http://www.ontologydesignpatterns.org/cp/owl/linnaeantaxonomy.owl#Taxon" ;
+       
+       rdfs:comment "A taxon is a concept denoting a type of organism or of a group of organisms."@en ;
+       
+       rdfs:seeAlso "Ontology Design Pattern linneanTaxonomy:Taxon"@en .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#Taxonomy
+
+:Taxonomy rdf:type owl:Class ;
+          
+          rdfs:label "Taxonomy"@en ,
+                     "Taxinomie"@fr ,
+                     "Taxonomie"@fr ;
+          
+          rdfs:subClassOf <http://www.w3.org/2004/02/skos/core#ConceptScheme> ;
+          
+          rdfs:comment """Taxonomy is the academic discipline of defining groups of biological organisms on the basis of shared characteristics and giving names to those groups. Each group is given a rank and groups of a given rank can be aggregated to form a super group of higher rank and thus create a hierarchical classification. The groups created through this process are referred to as taxa (singular taxon). An example of a modern classification is the one published in 2009 by the Angiosperm Phylogeny Group for all living flowering plant families (the APG III system).
+from wikipedia"""@en .
+
+
+
+###  http://ontology.irstea.fr/AgronomicTaxon#VarietyRank
+
+:VarietyRank rdf:type owl:Class ;
+             
+             rdfs:label "Variety"@en ,
+                        "Variété"@fr ;
+             
+             rdfs:subClassOf :Taxon ;
+             
+             rdfs:comment """Une variété est un rang taxinomique de niveau inférieur au rang d'espèce. Ce rang est utilisé en botanique et en mycologie.
+source wikipedia"""@fr .
+
+
+
+
+
+#################################################################
+#
+#    Rules
+#
+#################################################################
+
+
+<urn:swrl#o> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+<urn:swrl#s> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+<urn:swrl#label> rdf:type <http://www.w3.org/2003/11/swrl#Variable> .
+[ rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+  <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                          rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                      <http://www.w3.org/2003/11/swrl#classPredicate> :LivingOrganism ;
+                                                      <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl#o>
+                                                    ] ;
+                                          rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                     rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                 <http://www.w3.org/2003/11/swrl#classPredicate> :SpecyRank ;
+                                                                 <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl#s>
+                                                               ] ;
+                                                     rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                           rdf:rest rdf:nil ;
+                                                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasScientificName ;
+                                                                                       <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl#label> ;
+                                                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl#s>
+                                                                                     ]
+                                                                         ] ;
+                                                                rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                            <http://www.w3.org/2003/11/swrl#propertyPredicate> :isClassifiedBy ;
+                                                                            <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl#o> ;
+                                                                            <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl#s>
+                                                                          ]
+                                                              ]
+                                                   ]
+                                        ] ;
+  <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                          rdf:rest rdf:nil ;
+                                          rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                      <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasScientificName ;
+                                                      <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl#label> ;
+                                                      <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl#o>
+                                                    ]
+                                        ]
+] .
+[ rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
+  <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                          rdf:rest rdf:nil ;
+                                          rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                      <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasVernacularName ;
+                                                      <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl#label> ;
+                                                      <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl#o>
+                                                    ]
+                                        ] ;
+  <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                          rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                     rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                            <http://www.w3.org/2003/11/swrl#propertyPredicate> :isClassifiedBy ;
+                                                                            <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl#o> ;
+                                                                            <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl#s>
+                                                                          ] ;
+                                                                rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
+                                                                           rdf:rest rdf:nil ;
+                                                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#DatavaluedPropertyAtom> ;
+                                                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :hasVernacularName ;
+                                                                                       <http://www.w3.org/2003/11/swrl#argument2> <urn:swrl#label> ;
+                                                                                       <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl#s>
+                                                                                     ]
+                                                                         ]
+                                                              ] ;
+                                                     rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                                 <http://www.w3.org/2003/11/swrl#classPredicate> :SpecyRank ;
+                                                                 <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl#s>
+                                                               ]
+                                                   ] ;
+                                          rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                      <http://www.w3.org/2003/11/swrl#classPredicate> :LivingOrganism ;
+                                                      <http://www.w3.org/2003/11/swrl#argument1> <urn:swrl#o>
+                                                    ]
+                                        ]
+] .
+
+###  Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net
+
